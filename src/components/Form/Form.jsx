@@ -23,7 +23,7 @@ function Form() {
     dispatch(
       addContact({
         name: forms.name.value,
-        phone: forms.number.value,
+        number: forms.number.value,
       })
     );
     e.currentTarget.reset();

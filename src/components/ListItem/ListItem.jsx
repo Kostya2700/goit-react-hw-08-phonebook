@@ -17,9 +17,9 @@ const ListItem = () => {
   const filterArrayContacts = getFilterContact();
   return (
     <ul>
-      {filterArrayContacts?.map(({ id, name, phone }) => (
+      {filterArrayContacts?.map(({ id, name, number }) => (
         <li key={id} className={css.item}>
-          <span>{name}</span> : <span>{phone}</span>
+          <span>{name}</span> : <span>{number}</span>
           <button
             className="{css.btn_item}"
             onClick={() => {
