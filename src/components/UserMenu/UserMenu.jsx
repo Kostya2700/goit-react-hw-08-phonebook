@@ -1,11 +1,13 @@
 import { logOut } from 'auth/auth-operation';
-import { useDispatch } from 'react-redux';
+import { getUsername } from 'auth/auth-selectors';
+import { useDispatch, useSelector } from 'react-redux';
 
 const UserMenu = () => {
+  const name = useSelector(getUsername);
   const dispatch = useDispatch();
   return (
-    <div>
-      <p>mango@mail.com</p>
+    <div className="userMenu">
+      <p>{name}</p>
       <button
         type="button"
         onClick={() => {

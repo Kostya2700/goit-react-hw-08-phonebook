@@ -28,3 +28,14 @@ p {
 .active {
   color: red;
 }
+.appDiv {
+  display: flex;
+}
+.appDivUser {
+  display: flex;
+  justify-content: space-between;
+}
+.userMenu {
+  display: inline-grid;
+  justify-items: center;
+}

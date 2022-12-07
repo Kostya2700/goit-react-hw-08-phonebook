@@ -1,13 +1,14 @@
 import Phonebook from './Phonebook/Phonebook';
 import css from './App.module.css';
-import Navigation from './Navigation/Navigation';
+import AppBar from './AppBar/AppBar';
 import { Route, Routes } from 'react-router-dom';
 import Login from './Login/Login';
-import Autorization from './Autorization/Autorization';
-import UserMenu from './UserMenu/UserMenu';
+import Register from './Register/Register';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchCurrentUser } from 'auth/auth-operation';
+import { RestrictedRoute } from './RestrictedRoute';
+import { PrivateRoute } from './PrivateRout';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -17,13 +18,27 @@ export const App = () => {
   return (
     <div className={css.elem_div}>
       <Routes>
-        <Route path="/" element={<Navigation />}>
-          <Route index element={<Phonebook />} />
-          <Route path="/register" element={<Login />} />
-          <Route path="/login" element={<Autorization />} />
-          <Route path="/logu" element={<UserMenu />} />
+        <Route path="/" element={<AppBar />}>
+          <Route
+            path="/login"
+            element={
+              <RestrictedRoute component={Login} redirectTo={'/contacts'} />
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <RestrictedRoute component={Register} redirectTo={'/contacts'} />
+            }
+          />
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoute component={Phonebook} redirectTo={'/login'} />
+            }
+          />
 
-          <Route path="*" element={<Phonebook />} />
+          <Route path="*" element={<Login />} />
         </Route>
       </Routes>
     </div>

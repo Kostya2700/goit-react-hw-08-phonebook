@@ -18,29 +18,34 @@ const Login = () => {
     e.preventDefault();
     const form = e.currentTarget;
     dispatch(
-      authOperations.logIn({
+      authOperations.register({
+        name: form.elements.name.value,
         email: form.elements.email.value,
         password: form.elements.password.value,
       })
     );
   };
-
   return (
     <div>
-      <h1>Введіть дані щоб продовжити</h1>
+      <h1>Введіть дані щоб зареєструватися</h1>
 
       <form onSubmit={handleSubmit} style={styles.form} autoComplete="off">
         <label style={styles.label}>
+          Імя
+          <input type="text" name="name" />
+        </label>
+
+        <label autoComplete="off" style={styles.label}>
           Почта
           <input type="email" name="email" />
         </label>
 
-        <label style={styles.label}>
+        <label autoComplete="off" style={styles.label}>
           Пароль
           <input type="password" name="password" />
         </label>
 
-        <button type="submit">Войти</button>
+        <button type="submit">Зарегистрироваться</button>
       </form>
     </div>
   );

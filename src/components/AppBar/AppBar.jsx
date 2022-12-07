@@ -1,24 +1,30 @@
+import { getIsLoggedIn } from 'auth/auth-selectors';
+import UserMenu from 'components/UserMenu/UserMenu';
+import { Suspense } from 'react';
 import { useSelector } from 'react-redux';
-import Navigation from './Navigation';
-import UserMenu from './UserMenu';
-import AuthNav from './AuthNav';
-import { authSelectors } from '../redux/auth';
+import { NavLink, Outlet } from 'react-router-dom';
 
-const styles = {
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    borderBottom: '1px solid #2A363B',
-  },
-};
-
-export default function AppBar() {
-  const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
+const AppBar = () => {
+  const isConnect = useSelector(getIsLoggedIn);
   return (
-    <header style={styles.header}>
-      <Navigation />
-      {isLoggedIn ? <UserMenu /> : <AuthNav />}
-    </header>
+    <div>
+      <nav>
+        {!isConnect ? (
+          <div className="appDiv">
+            <NavLink to="/register">Register</NavLink>
+            <NavLink to="/login">Login</NavLink>
+          </div>
+        ) : (
+          <div className="appDivUser">
+            <NavLink to="/contacts">Phonebook</NavLink>
+            <UserMenu />
+          </div>
+        )}
+      </nav>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
+    </div>
   );
-}
+};
+export default AppBar;
