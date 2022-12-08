@@ -5,17 +5,22 @@ import { Route, Routes } from 'react-router-dom';
 import Login from './Login/Login';
 import Register from './Register/Register';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchCurrentUser } from 'auth/auth-operation';
 import { RestrictedRoute } from './RestrictedRoute';
 import { PrivateRoute } from './PrivateRout';
+import { selectIsRefreshing } from 'auth/auth-selectors';
+import { Skeleton } from '@chakra-ui/react';
 
 export const App = () => {
+  const isRefreshing = useSelector(selectIsRefreshing);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchCurrentUser());
   }, [dispatch]);
-  return (
+  return isRefreshing ? (
+    <Skeleton startColor="gray.300" endColor="orange.300" height="100vw" />
+  ) : (
     <div className={css.elem_div}>
       <Routes>
         <Route path="/" element={<AppBar />}>

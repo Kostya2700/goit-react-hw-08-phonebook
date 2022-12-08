@@ -1,6 +1,6 @@
+import { Input } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import { filter } from 'redux/filterSlice';
-import css from '../Filter/Filter.module.css';
 
 const Filter = () => {
   const dispatch = useDispatch();
@@ -9,15 +9,14 @@ const Filter = () => {
     dispatch(filter(value));
   };
   return (
-    <label className={css.search__label}>
-      Search contacts
-      <input
-        type="text"
-        onChange={e => {
-          changeFilter(e);
-        }}
-      />
-    </label>
+    <Input
+      size="sm"
+      placeholder="Search contacts"
+      type="text"
+      onChange={e => {
+        changeFilter(e);
+      }}
+    />
   );
 };
 export default Filter;

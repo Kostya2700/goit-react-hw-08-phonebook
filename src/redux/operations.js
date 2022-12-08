@@ -17,7 +17,6 @@ export const addContact = createAsyncThunk(
   async ({ name, number }, { rejectWithValue }) => {
     try {
       const response = await axios.post('/contacts', { name, number });
-      console.log('response', response);
       return response.data;
     } catch (e) {
       return rejectWithValue(e.message);
@@ -35,4 +34,3 @@ export const deleteContact = createAsyncThunk(
     }
   }
 );
-//https://connections-api.herokuapp.com/

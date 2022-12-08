@@ -3,6 +3,7 @@ import css from '../Form/Form.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getStateContacts } from 'redux/selectors';
 import { addContact } from 'redux/operations';
+import { Button, Input } from '@chakra-ui/react';
 
 function Form() {
   const dispatch = useDispatch();
@@ -31,7 +32,23 @@ function Form() {
 
   return (
     <form className={css.form} onSubmit={formSubmit} autoComplete="off">
-      <label>
+      <Input
+        variant="flushed"
+        placeholder="Name"
+        type="text"
+        name="name"
+        pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+        title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+      />
+      <Input
+        variant="flushed"
+        placeholder="Number"
+        type="tel"
+        name="number"
+        pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+        title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+      />
+      {/* <label>
         Name
         <input
           type="text"
@@ -39,9 +56,9 @@ function Form() {
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
         />
-      </label>
+      </label> */}
 
-      <label>
+      {/* <label>
         Number
         <input
           type="tel"
@@ -50,11 +67,18 @@ function Form() {
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
         />
-      </label>
-
-      <button type="submit" className={css.big_button}>
+      </label> */}
+      <Button
+        type="submit"
+        colorScheme="teal"
+        variant="solid"
+        className={css.big_button}
+      >
         Add contacts
-      </button>
+      </Button>
+      {/* <button type="submit" className={css.big_button}>
+        Add contacts
+      </button> */}
     </form>
   );
 }

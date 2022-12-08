@@ -1,4 +1,14 @@
+import {
+  Button,
+  Center,
+  Container,
+  Heading,
+  Input,
+  InputGroup,
+  InputRightElement,
+} from '@chakra-ui/react';
 import { authOperations } from 'auth';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 const styles = {
@@ -13,6 +23,8 @@ const styles = {
 };
 const Login = () => {
   const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
+  const handleClick = () => setShow(!show);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -26,23 +38,37 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h1>Введіть дані щоб продовжити</h1>
+    <Container maxW="md">
+      <div>
+        <Heading as="h3" size="lg" ml={25}>
+          Введіть дані щоб продовжити
+        </Heading>
 
-      <form onSubmit={handleSubmit} style={styles.form} autoComplete="off">
-        <label style={styles.label}>
-          Почта
-          <input type="email" name="email" />
-        </label>
+        <form onSubmit={handleSubmit} style={styles.form} autoComplete="off">
+          <Input placeholder="Почта" type="email" name="email" mb={5} />
 
-        <label style={styles.label}>
-          Пароль
-          <input type="password" name="password" />
-        </label>
+          <InputGroup size="md" mb={5}>
+            <Input
+              name="password"
+              pr="4.5rem"
+              type={show ? 'text' : 'password'}
+              placeholder="Enter password"
+            />
+            <InputRightElement width="4.5rem">
+              <Button h="1.75rem" size="sm" onClick={handleClick}>
+                {show ? 'Hide' : 'Show'}
+              </Button>
+            </InputRightElement>
+          </InputGroup>
 
-        <button type="submit">Войти</button>
-      </form>
-    </div>
+          <Center>
+            <Button type="submit" colorScheme="blue">
+              Увійти
+            </Button>
+          </Center>
+        </form>
+      </div>
+    </Container>
   );
 };
 export default Login;

@@ -1,4 +1,14 @@
+import {
+  Button,
+  Center,
+  Container,
+  Heading,
+  Input,
+  InputGroup,
+  InputRightElement,
+} from '@chakra-ui/react';
 import { authOperations } from 'auth';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 const styles = {
@@ -11,8 +21,10 @@ const styles = {
     marginBottom: 15,
   },
 };
-const Login = () => {
+const Register = () => {
   const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
+  const handleClick = () => setShow(!show);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -26,28 +38,50 @@ const Login = () => {
     );
   };
   return (
-    <div>
-      <h1>Введіть дані щоб зареєструватися</h1>
+    <Container maxW="md">
+      <div>
+        <Heading as="h3" size="lg" ml={25}>
+          Введіть дані щоб зареєструватися
+        </Heading>
 
-      <form onSubmit={handleSubmit} style={styles.form} autoComplete="off">
-        <label style={styles.label}>
-          Імя
-          <input type="text" name="name" />
-        </label>
+        <form onSubmit={handleSubmit} style={styles.form} autoComplete="off">
+          <Input
+            autoComplete="off"
+            placeholder="Імя"
+            type="text"
+            name="name"
+            mb={5}
+          />
+          <Input
+            autoComplete="off"
+            placeholder="Почта"
+            type="email"
+            name="email"
+            mb={5}
+          />
 
-        <label autoComplete="off" style={styles.label}>
-          Почта
-          <input type="email" name="email" />
-        </label>
-
-        <label autoComplete="off" style={styles.label}>
-          Пароль
-          <input type="password" name="password" />
-        </label>
-
-        <button type="submit">Зарегистрироваться</button>
-      </form>
-    </div>
+          <InputGroup size="md" mb={5}>
+            <Input
+              autoComplete="off"
+              name="password"
+              pr="4.5rem"
+              type={show ? 'text' : 'password'}
+              placeholder="Enter password"
+            />
+            <InputRightElement width="4.5rem">
+              <Button h="1.75rem" size="sm" onClick={handleClick}>
+                {show ? 'Hide' : 'Show'}
+              </Button>
+            </InputRightElement>
+          </InputGroup>
+          <Center>
+            <Button type="submit" colorScheme="blue">
+              зареєструватися
+            </Button>
+          </Center>
+        </form>
+      </div>
+    </Container>
   );
 };
-export default Login;
+export default Register;
