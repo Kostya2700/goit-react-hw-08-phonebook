@@ -1,16 +1,18 @@
-import Phonebook from './Phonebook/Phonebook';
 import css from './App.module.css';
 import AppBar from './AppBar/AppBar';
 import { Route, Routes } from 'react-router-dom';
-import Login from './Login/Login';
-import Register from './Register/Register';
-import { useEffect } from 'react';
+import { lazy, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCurrentUser } from 'auth/auth-operation';
 import { RestrictedRoute } from './RestrictedRoute';
 import { PrivateRoute } from './PrivateRout';
 import { selectIsRefreshing } from 'auth/auth-selectors';
 import { Skeleton } from '@chakra-ui/react';
+import { Home } from './Home/Home';
+// const Home = lazy(() => import('./Home/Home'));
+const Register = lazy(() => import('./Register/Register'));
+const Login = lazy(() => import('./Login/Login'));
+const Phonebook = lazy(() => import('./Phonebook/Phonebook'));
 
 export const App = () => {
   const isRefreshing = useSelector(selectIsRefreshing);
@@ -24,6 +26,7 @@ export const App = () => {
     <div className={css.elem_div}>
       <Routes>
         <Route path="/" element={<AppBar />}>
+          <Route index element={<Home />} />
           <Route
             path="/login"
             element={

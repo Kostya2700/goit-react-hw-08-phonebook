@@ -1,4 +1,4 @@
-import { Text } from '@chakra-ui/react';
+import { Center, Spinner, Text } from '@chakra-ui/react';
 import { getIsLoggedIn } from 'auth/auth-selectors';
 import UserMenu from 'components/UserMenu/UserMenu';
 import { Suspense } from 'react';
@@ -7,6 +7,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 
 const AppBar = () => {
   const isConnect = useSelector(getIsLoggedIn);
+
   return (
     <div>
       <nav>
@@ -52,7 +53,19 @@ const AppBar = () => {
           </div>
         )}
       </nav>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense
+        fallback={
+          <Center>
+            <Spinner
+              thickness="4px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="blue.500"
+              size="xl"
+            />
+          </Center>
+        }
+      >
         <Outlet />
       </Suspense>
     </div>

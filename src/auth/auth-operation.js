@@ -33,7 +33,6 @@ export const logIn = createAsyncThunk(
       token.set(data.token);
       return data;
     } catch (error) {
-      console.log('error', error);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
